@@ -24,7 +24,13 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col relative z-[10000]">
-      <header className="border-b gold-border glass-panel sticky top-0 z-50 overflow-visible">
+      <header
+        className="border-b gold-border sticky top-0 z-[10001] overflow-visible bg-cover bg-center backdrop-blur-2xl"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--background-near-black) / 0.75), hsl(var(--background-near-black) / 0.75)), url(/assets/galaxy-bg.jpg)",
+        }}
+      >
         <div className="border-b gold-border border-opacity-50 overflow-visible">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="hidden md:grid md:grid-cols-3 md:items-center h-12 gap-4 overflow-visible">
