@@ -39,22 +39,35 @@ export function MenuTabs() {
         {activeTabData && (
           <div key={activeTab} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              {activeTabData.items.map((item) => (
-                <div
-                  key={item.name}
-                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-5 px-5 border-b gold-border border-opacity-30"
-                >
-                  <div>
-                    <h3 className="font-serif text-lg gold-text">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+              {activeTabData.items.map((entry, index) =>
+                "type" in entry && entry.type === "subheader" ? (
+                  <div
+                    key={`subheader-${index}-${entry.label}`}
+                    className="col-span-full pt-4 first:pt-0 flex items-center justify-center"
+                  >
+                    <div className="w-full py-2 px-4 border gold-border border-opacity-50 rounded text-center bg-card/30">
+                      <h4 className="font-serif text-base gold-text tracking-wider uppercase">
+                        {entry.label}
+                      </h4>
+                    </div>
                   </div>
-                  {item.price != null && (
-                    <span className="font-serif text-lg gold-text shrink-0 sm:text-right">
-                      £{typeof item.price === "number" ? item.price.toFixed(2) : item.price}
-                    </span>
-                  )}
-                </div>
-              ))}
+                ) : (
+                  <div
+                    key={"name" in entry ? entry.name : index}
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-5 px-5 border-b gold-border border-opacity-30"
+                  >
+                    <div>
+                      <h3 className="font-serif text-lg gold-text">{"name" in entry && entry.name}</h3>
+                      <p className="text-sm text-muted-foreground">{"desc" in entry && entry.desc}</p>
+                    </div>
+                    {"price" in entry && entry.price != null && (
+                      <span className="font-serif text-lg gold-text shrink-0 sm:text-right">
+                        £{typeof entry.price === "number" ? entry.price.toFixed(2) : entry.price}
+                      </span>
+                    )}
+                  </div>
+                )
+              )}
             </div>
 
             {activeTabData.showPipeImages && (
