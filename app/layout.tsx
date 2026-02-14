@@ -13,6 +13,9 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "The Smoking Bear",
   description: "Luxury Shisha Lounge — Feltham",
+  icons: {
+    icon: "/assets/logo-badge.png",
+  },
 }
 
 export default function RootLayout({
