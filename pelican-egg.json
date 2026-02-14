@@ -1,0 +1,72 @@
+{
+  "_comment": "Pelican/Pterodactyl egg for Next.js - Import this in Admin Panel > Eggs > Import Egg",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "name": "SmokingBear",
+  "author": "thesmokingbear@localhost",
+  "description": "Host a Next.js application. Clones from Git, runs npm install, npm run build, then serves with next start.",
+  "features": null,
+  "docker_images": {
+    "Node.js 20": "ghcr.io/parkervcp/yolks:nodejs_20",
+    "Node.js 18": "ghcr.io/parkervcp/yolks:nodejs_18"
+  },
+  "file_denylist": [],
+  "startup": "if [ ! \"$(ls -A /home/container)\" ]; then echo \"Cloning repository...\"; git clone ${GIT_URL} /home/container; else cd /home/container; if [ -d .git ]; then git fetch origin; git checkout ${GIT_BRANCH}; git pull origin ${GIT_BRANCH}; fi; fi; cd /home/container; if [ -f package.json ]; then npm install; fi; npm run build; npx next start -p {{SERVER_PORT}} -H 0.0.0.0",
+  "config": {
+    "files": "{}",
+    "startup": "{\"done\": \"Ready in\"}",
+    "logs": "{}",
+    "stop": "^^C"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\napt update\napt install -y git curl\nmkdir -p /mnt/server\ncd /mnt/server\n\nif [[ ${GIT_URL} != *.git ]]; then\n  GIT_URL=${GIT_URL%/}\n  GIT_URL=${GIT_URL}.git\nfi\n\nif [ -n \"${USERNAME}\" ] && [ -n \"${ACCESS_TOKEN}\" ]; then\n  GIT_URL=\"https://${USERNAME}:${ACCESS_TOKEN}@$(echo ${GIT_URL} | cut -d/ -f3-)\"\nfi\n\nif [ ! \"$(ls -A /mnt/server)\" ]; then\n  if [ -z \"${GIT_BRANCH}\" ]; then\n    git clone ${GIT_URL} .\n  else\n    git clone --single-branch --branch ${GIT_BRANCH} ${GIT_URL} .\n  fi\nelse\n  cd /mnt/server\n  if [ -d .git ]; then\n    git reset --hard\n    git fetch origin\n    git checkout ${GIT_BRANCH:-main}\n    git pull origin ${GIT_BRANCH:-main}\n  else\n    rm -rf /mnt/server/* /mnt/server/.* 2>/dev/null || true\n    git clone ${GIT_URL} .\n  fi\nfi\n\nif [ -f /mnt/server/package.json ]; then\n  npm install\nfi\n\necho \"Installation complete\"\nexit 0",
+      "container": "node:20-bullseye-slim",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Git Repository URL",
+      "description": "Repository URL (e.g. https://github.com/justlags18/smokingbear)",
+      "env_variable": "GIT_URL",
+      "default_value": "https://github.com/justlags18/smokingbear.git",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Branch",
+      "description": "Branch to deploy (e.g. main)",
+      "env_variable": "GIT_BRANCH",
+      "default_value": "main",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Git Username",
+      "description": "GitHub username (for private repos)",
+      "env_variable": "USERNAME",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string",
+      "field_type": "text"
+    },
+    {
+      "name": "Git Access Token",
+      "description": "GitHub token (for private repos) - https://github.com/settings/tokens",
+      "env_variable": "ACCESS_TOKEN",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "nullable|string",
+      "field_type": "text"
+    }
+  ]
+}

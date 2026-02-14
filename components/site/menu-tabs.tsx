@@ -38,16 +38,14 @@ export function MenuTabs() {
       <div className="relative min-h-[300px]">
         {activeTabData && (
           <div key={activeTab} className="space-y-8">
-            <div className="grid gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               {activeTabData.items.map((item) => (
                 <div
                   key={item.name}
-                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-4 border-b gold-border border-opacity-30 last:border-0"
+                  className="flex flex-col gap-2 py-5 px-5 border-b gold-border border-opacity-30"
                 >
-                  <div>
-                    <h3 className="font-serif text-lg gold-text">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
-                  </div>
+                  <h3 className="font-serif text-lg gold-text">{item.name}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
                 </div>
               ))}
             </div>

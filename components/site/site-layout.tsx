@@ -93,7 +93,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] md:hidden"
+              className="fixed inset-0 bg-black z-[60] md:hidden"
               onClick={() => setMobileOpen(false)}
               aria-hidden
             />

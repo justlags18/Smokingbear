@@ -64,6 +64,14 @@ npm start
 2. Go to [vercel.com](https://vercel.com) and import the repository.
 3. Vercel will auto-detect Next.js and deploy.
 
+### Deploy to Pelican Panel
+
+1. In Pelican Admin Panel, go to **Eggs** → **Import Egg**.
+2. Upload or paste the contents of `pelican-egg.json` from this repo.
+3. Create a new server using the Next.js egg.
+4. Set **Git Repository URL** to `https://github.com/justlags18/smokingbear.git` and **Branch** to `main`.
+5. Start the server — it will clone, build, and run your Next.js app.
+
 ### Deploy to your own server
 
 1. On the server: `git clone` your repo, then `npm install && npm run build`.
