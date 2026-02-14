@@ -42,10 +42,17 @@ export function MenuTabs() {
               {activeTabData.items.map((item) => (
                 <div
                   key={item.name}
-                  className="flex flex-col gap-2 py-5 px-5 border-b gold-border border-opacity-30"
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 py-5 px-5 border-b gold-border border-opacity-30"
                 >
-                  <h3 className="font-serif text-lg gold-text">{item.name}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <div>
+                    <h3 className="font-serif text-lg gold-text">{item.name}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                  {item.price != null && (
+                    <span className="font-serif text-lg gold-text shrink-0 sm:text-right">
+                      £{typeof item.price === "number" ? item.price.toFixed(2) : item.price}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
