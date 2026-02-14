@@ -99,7 +99,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black z-[60] md:hidden"
+              className="fixed inset-0 bg-black z-[10002] md:hidden"
               onClick={() => setMobileOpen(false)}
               aria-hidden
             />
@@ -108,7 +108,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.3, ease: "easeOut" }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-sm glass-panel gold-border-l z-[70] md:hidden flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-sm glass-panel gold-border-l z-[10003] md:hidden flex flex-col"
             >
               <div className="flex items-center justify-between p-6 border-b gold-border">
                 <span className="text-lg font-semibold gold-text">Menu</span>
