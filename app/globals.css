@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   SPACE CLUB THEME - CSS Variables
+   ============================================ */
+@layer base {
+  :root {
+    --background-near-black: 240 6% 4%;
+    --gold: 43 74% 49%;
+    --gold-muted: 43 50% 35%;
+    --ice-blue: 195 100% 50%;
+    --ice-blue-glow: 195 100% 60%;
+    --ice-blue-muted: 195 60% 35%;
+
+    --background: var(--background-near-black);
+    --foreground: 0 0% 96%;
+    --card: 240 6% 6%;
+    --card-foreground: 0 0% 96%;
+    --muted: 240 6% 14%;
+    --muted-foreground: 0 0% 72%;
+    --border: 43 40% 25%;
+    --input: 240 6% 14%;
+    --ring: var(--gold);
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid hsl(var(--gold));
+    outline-offset: 2px;
+  }
+  body { @apply bg-background text-foreground antialiased; }
+}
+
+/* ============================================
+   SPACE CLUB - Utility Classes
+   ============================================ */
+@layer utilities {
+  .gold-border { border: 1px solid hsl(var(--gold)); }
+  .gold-divider {
+    width: 1px;
+    min-height: 1em;
+    background: hsl(var(--gold) / 0.4);
+  }
+  .gold-divider-h {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, hsl(var(--gold) / 0.5), transparent);
+  }
+  .gold-border-l { border-left: 1px solid hsl(var(--gold) / 0.5); }
+  .gold-hover-glow:hover {
+    box-shadow: 0 0 16px hsl(var(--gold) / 0.35), 0 0 32px hsl(var(--gold) / 0.15);
+  }
+  .gold-metallic-btn {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gold) / 0.95) 0%,
+      hsl(43 65% 38%) 20%,
+      hsl(var(--gold)) 50%,
+      hsl(43 55% 32%) 80%,
+      hsl(var(--gold) / 0.9) 100%
+    );
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+    color: hsl(0 0% 4%);
+    font-weight: 500;
+    box-shadow: 0 2px 12px hsl(var(--gold) / 0.25), inset 0 1px 0 hsl(43 100% 75% / 0.35);
+    border: 1px solid hsl(var(--gold) / 0.5);
+    transition: box-shadow 0.3s ease, background-position 0.3s ease;
+  }
+  .gold-metallic-btn:hover {
+    background-position: 100% 50%;
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.4), 0 0 40px hsl(var(--gold) / 0.2),
+      inset 0 1px 0 hsl(43 100% 75% / 0.45);
+  }
+  .gold-text { color: hsl(var(--gold)); }
+
+  .blue-glow {
+    box-shadow: 0 0 20px hsl(var(--ice-blue) / 0.4), 0 0 40px hsl(var(--ice-blue) / 0.2);
+  }
+
+  .glass-panel {
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--gold) / 0.3);
+    box-shadow: inset 0 1px 0 hsl(var(--ice-blue) / 0.05);
+  }
+
+  .starfield-bg {
+    background-color: hsl(var(--background-near-black));
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--ice-blue) / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, hsl(var(--gold) / 0.06) 0%, transparent 40%),
+      radial-gradient(1px 1px at 20% 30%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 70%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 10%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 50%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 80%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 90%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 40%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 60%, white 0%, transparent 100%);
+    background-size: 100% 100%, 100% 100%, 200px 200px, 250px 250px, 180px 180px, 220px 220px,
+      300px 300px, 190px 190px, 210px 210px, 240px 240px;
+    background-position: 0 0, 0 0, 0 0, 50px 30px, 100px 80px, 150px 20px, 200px 150px, 80px 120px,
+      120px 60px, 180px 90px;
+  }
+
+  .noise-overlay { position: relative; }
+  .noise-overlay::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .vignette-overlay { position: relative; }
+  .vignette-overlay::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 75% 75% at 50% 50%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  @keyframes star-twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.85; }
+  }
+  .star-twinkle {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      radial-gradient(1.5px 1.5px at 18% 22%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 82% 18%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 42% 58%, white 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 72% 68%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 22% 82%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 58% 12%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 8% 48%, white 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 88%, white 0%, transparent 100%);
+    background-size: 100% 100%;
+    animation: star-twinkle 5s ease-in-out infinite;
+  }
+}

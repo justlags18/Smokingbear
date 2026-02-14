@@ -1,0 +1,9 @@
+import { HomeHero } from "@/components/site/home-hero"
+
+export default function Home() {
+  return (
+    <main className="min-h-screen overflow-visible">
+      <HomeHero />
+    </main>
+  )
+}
